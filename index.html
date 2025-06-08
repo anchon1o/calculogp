@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Calculadora Proba Acceso</title>
+  <title>Calculadora Acceso GP</title>
   <style>
     body {
       font-family: sans-serif;
@@ -14,65 +14,84 @@
       text-align: center;
     }
     .bloque {
-      background: white;
       border-radius: 8px;
       padding: 1rem;
       margin-bottom: 1.5rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      background: white;
     }
     .verde {
       border-left: 6px solid green;
+      background: #e6f4e6;
+    }
+    .azul {
+      border-left: 6px solid #007bff;
+      background: #e6efff;
     }
     label {
-      display: flex;
-      justify-content: space-between;
-      margin: 0.6rem 0;
+      margin: 0.3rem 0;
     }
     input[type="number"] {
-      width: 5rem;
+      width: 4.5rem;
       font-size: 1rem;
       padding: 0.2rem;
-    }
-    select {
-      width: 100%;
-      padding: 0.4rem;
-      font-size: 1rem;
-      margin-bottom: 1rem;
+      margin-top: 0.2rem;
     }
     button {
       width: 100%;
-      padding: 0.8rem;
-      font-size: 1rem;
-      background-color: #007bff;
-      color: white;
+      padding: 0.6rem;
+      font-size: 1.2rem;
+      margin-top: 0.6rem;
       border: none;
       border-radius: 6px;
       cursor: pointer;
     }
-    button:hover {
+    #modo-btn {
+      background-color: #ddd;
+    }
+    #calcular-btn {
+      background-color: #007bff;
+      color: white;
+    }
+    #calcular-btn:hover {
       background-color: #0056b3;
     }
+    .fila-horizontal {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+    .fila-horizontal label {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.85rem;
+    }
     .resultado {
-      text-align: center;
-      font-size: 1.4rem;
       font-weight: bold;
+      font-size: 1.3rem;
+      text-align: center;
       margin-top: 1rem;
     }
   </style>
 </head>
 <body>
 
-  <h2>Avaliación Proba de Acceso</h2>
+  <h2>Calculadora Acceso GP</h2>
 
-  <label for="modo">Modo de avaliación:</label>
-  <select id="modo" onchange="cambiarModo()">
-    <option value="individual">Profesores individuais</option>
-    <option value="consensuado">Nota consensuada</option>
-  </select>
+  <!-- BOTÓN CAMBIO DE MODO -->
+  <button id="modo-btn" onclick="cambiarModo()">👥 Modo: profesores individuais</button>
 
-  <!-- BLOQUE INSTRUMENTO -->
-  <div class="bloque verde" id="bloque-instrumento">
+  <!-- INSTRUMENTO -->
+  <div class="bloque verde">
     <h3>Instrumento</h3>
     <div id="inst-individual">
-      <label>Profesor 1: <input type="number" id="inst1" min="0" max="10" step="0.01"></label>
-      <label>Profesor 2: <input type="number" id="inst2" min="0"
+      <div class="fila-horizontal">
+        <label>P1<input type="number" id="inst1" min="0" max="10" step="0.01"></label>
+        <label>P2<input type="number" id="inst2" min="0" max="10" step="0.01"></label>
+        <label>P3<input type="number" id="inst3" min="0" max="10" step="0.01"></label>
+      </div>
+    </div>
+    <div id="inst-consensuado" style="display:none;"
