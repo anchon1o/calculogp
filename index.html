@@ -11,7 +11,7 @@
       background: #007bc4;
       color: white;
     }
-    h2, h3 {
+    h2 {
       text-align: center;
     }
     .bloque {
@@ -20,6 +20,10 @@
       margin-bottom: 1.5rem;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid white;
+    }
+    .bloque h3 {
+      text-align: center;
+      text-transform: uppercase;
     }
     input[type="number"] {
       font-size: 1rem;
@@ -80,12 +84,9 @@
       margin-top: 1rem;
     }
     .subtitulo {
-      margin-top: 1rem;
+      margin-bottom: 0.3rem;
       font-weight: bold;
-      text-transform: uppercase;
       font-size: 1rem;
-      border-bottom: 1px solid white;
-      padding-bottom: 0.3rem;
       text-align: center;
     }
   </style>
@@ -97,7 +98,7 @@
   <button id="modo-btn" onclick="cambiarModo()">👥 Modo: profesores individuais</button>
 
   <div class="bloque">
-    <h3>Instrumento</h3>
+    <h3>INSTRUMENTO</h3>
     <div class="fila-horizontal">
       <div class="triple-input" id="inst-individual">
         <div class="fila-vertical">
@@ -113,7 +114,7 @@
   </div>
 
   <div class="bloque">
-    <h3>Linguaxe Musical</h3>
+    <h3>LINGUAXE MUSICAL</h3>
     <div class="fila-horizontal">
 
       <div style="flex: 1; min-width: 130px;">
