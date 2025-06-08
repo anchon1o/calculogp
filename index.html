@@ -63,4 +63,85 @@
       gap: 0.5rem;
       margin: 0.5rem 0;
     }
-    .fila
+    .fila-horizontal label {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+    .resultado {
+      font-weight: bold;
+      font-size: 1.4rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .subtitulo {
+      margin-top: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 1rem;
+      border-bottom: 1px solid white;
+      padding-bottom: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Calculadora Acceso GP</h2>
+
+  <button id="modo-btn" onclick="cambiarModo()">👥 Modo: profesores individuais</button>
+
+  <!-- INSTRUMENTO -->
+  <div class="bloque">
+    <h3>Instrumento</h3>
+    <div id="inst-individual">
+      <div class="fila-horizontal">
+        <label>P1<input type="number" id="inst1" min="0" max="10" step="0.01"></label>
+        <label>P2<input type="number" id="inst2" min="0" max="10" step="0.01"></label>
+        <label>P3<input type="number" id="inst3" min="0" max="10" step="0.01"></label>
+      </div>
+    </div>
+    <div id="inst-consensuado" style="display:none;">
+      <label>Nota consensuada:<br>
+        <input type="number" id="instC" min="0" max="10" step="0.01">
+      </label>
+    </div>
+  </div>
+
+  <!-- LINGUAXE MUSICAL -->
+  <div class="bloque">
+    <h3>Linguaxe Musical</h3>
+
+    <!-- Ritmo -->
+    <div class="subtitulo">Ritmo</div>
+    <div id="ritmo-individual">
+      <div class="fila-horizontal">
+        <label>P1<input type="number" id="ritmo1" min="0" max="10" step="0.01"></label>
+        <label>P2<input type="number" id="ritmo2" min="0" max="10" step="0.01"></label>
+        <label>P3<input type="number" id="ritmo3" min="0" max="10" step="0.01"></label>
+      </div>
+    </div>
+    <div id="ritmo-consensuado" style="display:none;">
+      <label>Ritmo consensuado:<br>
+        <input type="number" id="ritmoC" min="0" max="10" step="0.01">
+      </label>
+    </div>
+
+    <!-- Entoación -->
+    <div class="subtitulo">Entoación</div>
+    <div id="ento-individual">
+      <div class="fila-horizontal">
+        <label>P1<input type="number" id="ento1" min="0" max="10" step="0.01"></label>
+        <label>P2<input type="number" id="ento2" min="0" max="10" step="0.01"></label>
+        <label>P3<input type="number" id="ento3" min="0" max="10" step="0.01"></label>
+      </div>
+    </div>
+    <div id="ento-consensuado" style="display:none;">
+      <label>Entoación consensuada:<br>
+        <input type="number" id="entoC" min="0" max="10" step="0.01">
+      </label>
+    </div>
+
+    <!-- Teoría -->
+    <div class="sub
