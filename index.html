@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="gl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parte 1 - Avaliación</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora Proba Acceso</title>
   <style>
     body {
       font-family: sans-serif;
       padding: 1rem;
       background: #f5f5f5;
     }
-    h2 {
+    h2, h3 {
       text-align: center;
     }
     .bloque {
@@ -39,6 +39,25 @@
       font-size: 1rem;
       margin-bottom: 1rem;
     }
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .resultado {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -54,64 +73,6 @@
   <!-- BLOQUE INSTRUMENTO -->
   <div class="bloque verde" id="bloque-instrumento">
     <h3>Instrumento</h3>
-
     <div id="inst-individual">
       <label>Profesor 1: <input type="number" id="inst1" min="0" max="10" step="0.01"></label>
-      <label>Profesor 2: <input type="number" id="inst2" min="0" max="10" step="0.01"></label>
-      <label>Profesor 3: <input type="number" id="inst3" min="0" max="10" step="0.01"></label>
-    </div>
-
-    <div id="inst-consensuado" style="display:none;">
-      <label>Nota consensuada: <input type="number" id="instC" min="0" max="10" step="0.01"></label>
-    </div>
-  </div>
-
-  <!-- BLOQUE LINGUAXE MUSICAL -->
-  <div class="bloque" id="bloque-linguaxe">
-    <h3>Linguaxe Musical</h3>
-
-    <!-- Ritmo -->
-    <div id="ritmo-individual">
-      <label>Ritmo Profesor 1: <input type="number" id="ritmo1" min="0" max="10" step="0.01"></label>
-      <label>Ritmo Profesor 2: <input type="number" id="ritmo2" min="0" max="10" step="0.01"></label>
-      <label>Ritmo Profesor 3: <input type="number" id="ritmo3" min="0" max="10" step="0.01"></label>
-    </div>
-    <div id="ritmo-consensuado" style="display:none;">
-      <label>Ritmo consensuado: <input type="number" id="ritmoC" min="0" max="10" step="0.01"></label>
-    </div>
-
-    <!-- Entoación -->
-    <div id="ento-individual">
-      <label>Entoación Profesor 1: <input type="number" id="ento1" min="0" max="10" step="0.01"></label>
-      <label>Entoación Profesor 2: <input type="number" id="ento2" min="0" max="10" step="0.01"></label>
-      <label>Entoación Profesor 3: <input type="number" id="ento3" min="0" max="10" step="0.01"></label>
-    </div>
-    <div id="ento-consensuado" style="display:none;">
-      <label>Entoación consensuada: <input type="number" id="entoC" min="0" max="10" step="0.01"></label>
-    </div>
-
-    <!-- Teoría -->
-    <label>Teoría (única): <input type="number" id="teoria" min="0" max="10" step="0.01"></label>
-
-    <!-- Ditado -->
-    <label>Ditado (único): <input type="number" id="dictado" min="0" max="10" step="0.01"></label>
-  </div>
-
-  <script>
-    function cambiarModo() {
-      const modo = document.getElementById("modo").value;
-
-      // Mostrar/ocultar bloques según modo
-      document.getElementById("inst-individual").style.display = modo === "individual" ? "block" : "none";
-      document.getElementById("inst-consensuado").style.display = modo === "consensuado" ? "block" : "none";
-
-      document.getElementById("ritmo-individual").style.display = modo === "individual" ? "block" : "none";
-      document.getElementById("ritmo-consensuado").style.display = modo === "consensuado" ? "block" : "none";
-
-      document.getElementById("ento-individual").style.display = modo === "individual" ? "block" : "none";
-      document.getElementById("ento-consensuado").style.display = modo === "consensuado" ? "block" : "none";
-    }
-  </script>
-
-</body>
-</html>
+      <label>Profesor 2: <input type="number" id="inst2" min="0"
