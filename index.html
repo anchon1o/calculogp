@@ -36,10 +36,10 @@
       border-radius: 4px;
     }
     .triple-input input[type="number"] {
-      width: 3rem;
+      width: 2.5rem;
     }
     .single-input input[type="number"] {
-      width: 3rem;
+      width: 2.5rem;
       height: 6.6rem;
     }
     button {
@@ -66,7 +66,7 @@
     }
     .fila-horizontal {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       gap: 1rem;
       margin: 0.5rem 0;
       flex-wrap: wrap;
@@ -88,6 +88,14 @@
       font-weight: bold;
       font-size: 1rem;
       text-align: center;
+    }
+    .single-input {
+      display: flex;
+      justify-content: center;
+    }
+    .triple-input {
+      display: flex;
+      justify-content: center;
     }
   </style>
 </head>
@@ -117,7 +125,7 @@
     <h3>LINGUAXE MUSICAL</h3>
     <div class="fila-horizontal">
 
-      <div style="flex: 1; min-width: 130px;">
+      <div style="flex: 1; min-width: 100px; max-width: 120px; text-align: center;">
         <div class="subtitulo">Ritmo</div>
         <div class="triple-input" id="ritmo-individual">
           <div class="fila-vertical">
@@ -131,7 +139,7 @@
         </div>
       </div>
 
-      <div style="flex: 1; min-width: 130px;">
+      <div style="flex: 1; min-width: 100px; max-width: 120px; text-align: center;">
         <div class="subtitulo">Entoación</div>
         <div class="triple-input" id="ento-individual">
           <div class="fila-vertical">
@@ -145,14 +153,14 @@
         </div>
       </div>
 
-      <div style="flex: 1; min-width: 130px;">
+      <div style="flex: 1; min-width: 100px; max-width: 120px; text-align: center;">
         <div class="subtitulo">Teoría</div>
         <div class="single-input">
           <input type="number" id="teoria" min="0" max="10" step="0.01">
         </div>
       </div>
 
-      <div style="flex: 1; min-width: 130px;">
+      <div style="flex: 1; min-width: 100px; max-width: 120px; text-align: center;">
         <div class="subtitulo">Ditado</div>
         <div class="single-input">
           <input type="number" id="dictado" min="0" max="10" step="0.01">
