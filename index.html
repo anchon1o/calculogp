@@ -1,169 +1,65 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="gl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Calificación Acceso</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parte 1 - Avaliación</title>
   <style>
     body {
       font-family: sans-serif;
       padding: 1rem;
-      max-width: 600px;
-      margin: auto;
-      background-color: #f9f9f9;
+      background: #f5f5f5;
     }
-    h2, h4 {
+    h2 {
       text-align: center;
+    }
+    .bloque {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .verde {
+      border-left: 6px solid green;
     }
     label {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-top: 0.6rem;
-      font-size: 1rem;
+      margin: 0.6rem 0;
     }
     input[type="number"] {
-      width: 5.5rem;
+      width: 5rem;
       font-size: 1rem;
-      padding: 0.3rem;
+      padding: 0.2rem;
     }
     select {
       width: 100%;
-      font-size: 1rem;
       padding: 0.4rem;
-      margin-top: 0.3rem;
-    }
-    .profesor, .consensuado, .comunes {
-      margin-bottom: 1.5rem;
-      background: white;
-      padding: 0.8rem;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    }
-    .oculto {
-      display: none;
-    }
-    button {
-      width: 100%;
-      padding: 0.8rem;
       font-size: 1rem;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .resultado {
-      font-size: 1.3rem;
-      text-align: center;
-      margin-top: 1.5rem;
-      font-weight: bold;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
-  <h2>Calificación Acceso GP</h2>
 
-  <label for="modo">Modo de evaluación:</label>
+  <h2>Avaliación Proba de Acceso</h2>
+
+  <label for="modo">Modo de avaliación:</label>
   <select id="modo" onchange="cambiarModo()">
-    <option value="individual">Profesores individuales</option>
+    <option value="individual">Profesores individuais</option>
     <option value="consensuado">Nota consensuada</option>
   </select>
 
-  <!-- Notas comunes -->
-  <div class="comunes">
-    <h4>Teoría y Dictado (únicas)</h4>
-    <label>Teoría:
-      <input type="number" id="teoria" min="0" max="10" step="0.01">
-    </label>
-    <label>Dictado:
-      <input type="number" id="dictado" min="0" max="10" step="0.01">
-    </label>
-  </div>
+  <!-- BLOQUE INSTRUMENTO -->
+  <div class="bloque verde" id="bloque-instrumento">
+    <h3>Instrumento</h3>
 
-  <!-- Modo individual -->
-  <div id="modo-individual">
-    <div class="profesor">
-      <h4>Profesor 1</h4>
-      <label>Instrumento: <input type="number" id="inst1" min="0" max="10" step="0.01"></label>
-      <label>Ritmo: <input type="number" id="ritmo1" min="0" max="10" step="0.01"></label>
-      <label>Entonación: <input type="number" id="ento1" min="0" max="10" step="0.01"></label>
+    <div id="inst-individual">
+      <label>Profesor 1: <input type="number" id="inst1" min="0" max="10" step="0.01"></label>
+      <label>Profesor 2: <input type="number" id="inst2" min="0" max="10" step="0.01"></label>
+      <label>Profesor 3: <input type="number" id="inst3" min="0" max="10" step="0.01"></label>
     </div>
-    <div class="profesor">
-      <h4>Profesor 2</h4>
-      <label>Instrumento: <input type="number" id="inst2" min="0" max="10" step="0.01"></label>
-      <label>Ritmo: <input type="number" id="ritmo2" min="0" max="10" step="0.01"></label>
-      <label>Entonación: <input type="number" id="ento2" min="0" max="10" step="0.01"></label>
-    </div>
-    <div class="profesor">
-      <h4>Profesor 3</h4>
-      <label>Instrumento: <input type="number" id="inst3" min="0" max="10" step="0.01"></label>
-      <label>Ritmo: <input type="number" id="ritmo3" min="0" max="10" step="0.01"></label>
-      <label>Entonación: <input type="number" id="ento3" min="0" max="10" step="0.01"></label>
-    </div>
-  </div>
 
-  <!-- Modo consensuado -->
-  <div id="modo-consensuado" class="oculto">
-    <div class="consensuado">
-      <h4>Nota consensuada</h4>
-      <label>Instrumento: <input type="number" id="instC" min="0" max="10" step="0.01"></label>
-      <label>Ritmo: <input type="number" id="ritmoC" min="0" max="10" step="0.01"></label>
-      <label>Entonación: <input type="number" id="entoC" min="0" max="10" step="0.01"></label>
-    </div>
-  </div>
-
-  <button onclick="calcular()">Calcular nota final</button>
-
-  <div class="resultado" id="resultado"></div>
-
-  <script>
-    function cambiarModo() {
-      const modo = document.getElementById("modo").value;
-      document.getElementById("modo-individual").classList.toggle("oculto", modo !== "individual");
-      document.getElementById("modo-consensuado").classList.toggle("oculto", modo !== "consensuado");
-    }
-
-    function calcular() {
-      const modo = document.getElementById("modo").value;
-      const teoria = parseFloat(document.getElementById("teoria").value) || 0;
-      const dictado = parseFloat(document.getElementById("dictado").value) || 0;
-
-      const notaLenguaje = () => {
-        if (modo === "individual") {
-          let ritmo = 0, ento = 0;
-          for (let i = 1; i <= 3; i++) {
-            ritmo += parseFloat(document.getElementById(`ritmo${i}`).value) || 0;
-            ento  += parseFloat(document.getElementById(`ento${i}`).value) || 0;
-          }
-          ritmo /= 3;
-          ento  /= 3;
-          return 0.10 * teoria + 0.30 * ritmo + 0.30 * ento + 0.30 * dictado;
-        } else {
-          const ritmo = parseFloat(document.getElementById("ritmoC").value) || 0;
-          const ento  = parseFloat(document.getElementById("entoC").value) || 0;
-          return 0.10 * teoria + 0.30 * ritmo + 0.30 * ento + 0.30 * dictado;
-        }
-      };
-
-      const notaInstrumento = () => {
-        if (modo === "individual") {
-          let total = 0;
-          for (let i = 1; i <= 3; i++) {
-            total += parseFloat(document.getElementById(`inst${i}`).value) || 0;
-          }
-          return total / 3;
-        } else {
-          return parseFloat(document.getElementById("instC").value) || 0;
-        }
-      };
-
-      const notaFinal = 0.70 * notaInstrumento() + 0.30 * notaLenguaje();
-      document.getElementById("resultado").innerText = "Nota final: " + notaFinal.toFixed(2);
-    }
-  </script>
-</body>
-</html>
+    <div id="inst-consensuado" style="display:none;">
+      <label>Nota consensuada: <input type="num
