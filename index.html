@@ -22,7 +22,6 @@
       border: 1px solid white;
     }
     input[type="number"] {
-      width: 4.5rem;
       font-size: 1rem;
       padding: 0.2rem;
       margin-top: 0.2rem;
@@ -31,6 +30,13 @@
       color: #007bc4;
       border: none;
       border-radius: 4px;
+    }
+    .triple-input input[type="number"] {
+      width: 3rem;
+    }
+    .single-input input[type="number"] {
+      width: 3rem;
+      height: 6.6rem;
     }
     button {
       width: 100%;
@@ -57,16 +63,15 @@
     .fila-horizontal {
       display: flex;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 1rem;
       margin: 0.5rem 0;
       flex-wrap: wrap;
     }
-    .fila-horizontal label {
-      flex: 1;
+    .fila-vertical {
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 0.85rem;
+      gap: 0.2rem;
     }
     .resultado {
       font-weight: bold;
@@ -81,6 +86,7 @@
       font-size: 1rem;
       border-bottom: 1px solid white;
       padding-bottom: 0.3rem;
+      text-align: center;
     }
   </style>
 </head>
@@ -92,17 +98,17 @@
 
   <div class="bloque">
     <h3>Instrumento</h3>
-    <div id="inst-individual">
-      <div class="fila-horizontal">
-        <label>P1<input type="number" id="inst1" min="0" max="10" step="0.01"></label>
-        <label>P2<input type="number" id="inst2" min="0" max="10" step="0.01"></label>
-        <label>P3<input type="number" id="inst3" min="0" max="10" step="0.01"></label>
+    <div class="fila-horizontal">
+      <div class="triple-input" id="inst-individual">
+        <div class="fila-vertical">
+          <input type="number" id="inst1" min="0" max="10" step="0.01">
+          <input type="number" id="inst2" min="0" max="10" step="0.01">
+          <input type="number" id="inst3" min="0" max="10" step="0.01">
+        </div>
       </div>
-    </div>
-    <div id="inst-consensuado" style="display:none;">
-      <label>Nota consensuada:<br>
+      <div class="single-input" id="inst-consensuado" style="display:none;">
         <input type="number" id="instC" min="0" max="10" step="0.01">
-      </label>
+      </div>
     </div>
   </div>
 
@@ -112,40 +118,44 @@
 
       <div style="flex: 1; min-width: 130px;">
         <div class="subtitulo">Ritmo</div>
-        <div id="ritmo-individual">
-          <div class="fila-horizontal">
-            <label>P1<input type="number" id="ritmo1" min="0" max="10" step="0.01"></label>
-            <label>P2<input type="number" id="ritmo2" min="0" max="10" step="0.01"></label>
-            <label>P3<input type="number" id="ritmo3" min="0" max="10" step="0.01"></label>
+        <div class="triple-input" id="ritmo-individual">
+          <div class="fila-vertical">
+            <input type="number" id="ritmo1" min="0" max="10" step="0.01">
+            <input type="number" id="ritmo2" min="0" max="10" step="0.01">
+            <input type="number" id="ritmo3" min="0" max="10" step="0.01">
           </div>
         </div>
-        <div id="ritmo-consensuado" style="display:none;">
-          <input type="number" id="ritmoC" min="0" max="10" step="0.01" placeholder="consensuado">
+        <div class="single-input" id="ritmo-consensuado" style="display:none;">
+          <input type="number" id="ritmoC" min="0" max="10" step="0.01">
         </div>
       </div>
 
       <div style="flex: 1; min-width: 130px;">
         <div class="subtitulo">Entoación</div>
-        <div id="ento-individual">
-          <div class="fila-horizontal">
-            <label>P1<input type="number" id="ento1" min="0" max="10" step="0.01"></label>
-            <label>P2<input type="number" id="ento2" min="0" max="10" step="0.01"></label>
-            <label>P3<input type="number" id="ento3" min="0" max="10" step="0.01"></label>
+        <div class="triple-input" id="ento-individual">
+          <div class="fila-vertical">
+            <input type="number" id="ento1" min="0" max="10" step="0.01">
+            <input type="number" id="ento2" min="0" max="10" step="0.01">
+            <input type="number" id="ento3" min="0" max="10" step="0.01">
           </div>
         </div>
-        <div id="ento-consensuado" style="display:none;">
-          <input type="number" id="entoC" min="0" max="10" step="0.01" placeholder="consensuado">
+        <div class="single-input" id="ento-consensuado" style="display:none;">
+          <input type="number" id="entoC" min="0" max="10" step="0.01">
         </div>
       </div>
 
       <div style="flex: 1; min-width: 130px;">
         <div class="subtitulo">Teoría</div>
-        <input type="number" id="teoria" min="0" max="10" step="0.01" placeholder="única">
+        <div class="single-input">
+          <input type="number" id="teoria" min="0" max="10" step="0.01">
+        </div>
       </div>
 
       <div style="flex: 1; min-width: 130px;">
         <div class="subtitulo">Ditado</div>
-        <input type="number" id="dictado" min="0" max="10" step="0.01" placeholder="único">
+        <div class="single-input">
+          <input type="number" id="dictado" min="0" max="10" step="0.01">
+        </div>
       </div>
 
     </div>
