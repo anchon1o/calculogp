@@ -16,19 +16,21 @@
     }
     .bloque {
       border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid white;
+      position: relative;
     }
     .bloque h3 {
       text-align: center;
       text-transform: uppercase;
+      margin-bottom: 0.4rem;
     }
     input[type="number"] {
-      font-size: 1rem;
-      padding: 0.2rem;
-      margin-top: 0.2rem;
+      font-size: 0.9rem;
+      padding: 0.1rem;
+      margin-top: 0.1rem;
       text-align: center;
       background: white;
       color: #007bc4;
@@ -36,16 +38,16 @@
       border-radius: 4px;
     }
     .triple-input input[type="number"] {
-      width: 2.5rem;
+      width: 2.2rem;
     }
     .single-input input[type="number"] {
-      width: 2.5rem;
-      height: 6.6rem;
+      width: 2.2rem;
+      height: 5.5rem;
     }
     button {
       width: 100%;
       padding: 0.7rem;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-top: 0.8rem;
       border: none;
       border-radius: 6px;
@@ -67,33 +69,36 @@
     .fila-horizontal {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin: 0.5rem 0;
-      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.3rem 0;
+      flex-wrap: nowrap;
     }
     .fila-vertical {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0.15rem;
     }
-    .resultado {
+    .resultado, .nota-parcial {
       font-weight: bold;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
+    }
+    .nota-parcial {
+      position: absolute;
+      bottom: 0.4rem;
+      right: 0.6rem;
+      font-size: 0.85rem;
+      opacity: 0.85;
     }
     .subtitulo {
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
       font-weight: bold;
-      font-size: 1rem;
+      font-size: 0.95rem;
       text-align: center;
     }
-    .single-input {
-      display: flex;
-      justify-content: center;
-    }
-    .triple-input {
+    .single-input, .triple-input {
       display: flex;
       justify-content: center;
     }
@@ -105,7 +110,7 @@
 
   <button id="modo-btn" onclick="cambiarModo()">👥 Modo: profesores individuais</button>
 
-  <div class="bloque">
+  <div class="bloque" id="bloque-instrumento">
     <h3>INSTRUMENTO</h3>
     <div class="fila-horizontal">
       <div class="triple-input" id="inst-individual">
@@ -119,13 +124,14 @@
         <input type="number" id="instC" min="0" max="10" step="0.01">
       </div>
     </div>
+    <div class="nota-parcial" id="nota-instrumento"></div>
   </div>
 
-  <div class="bloque">
+  <div class="bloque" id="bloque-linguaxe">
     <h3>LINGUAXE MUSICAL</h3>
     <div class="fila-horizontal">
 
-      <div style="flex: 1; min-width: 100px; max-width: 120px; text-align: center;">
+      <div style="flex: 1; min-width: 80px; max-width: 100px; text-align: center;">
         <div class="subtitulo">Ritmo</div>
         <div class="triple-input" id="ritmo-individual">
           <div class="fila-vertical">
@@ -139,7 +145,7 @@
         </div>
       </div>
 
-      <div style="flex: 1; min-width: 100px; max-width: 120px; text-align: center;">
+      <div style="flex: 1; min-width: 80px; max-width: 100px; text-align: center;">
         <div class="subtitulo">Entoación</div>
         <div class="triple-input" id="ento-individual">
           <div class="fila-vertical">
@@ -153,14 +159,14 @@
         </div>
       </div>
 
-      <div style="flex: 1; min-width: 100px; max-width: 120px; text-align: center;">
+      <div style="flex: 1; min-width: 80px; max-width: 100px; text-align: center;">
         <div class="subtitulo">Teoría</div>
         <div class="single-input">
           <input type="number" id="teoria" min="0" max="10" step="0.01">
         </div>
       </div>
 
-      <div style="flex: 1; min-width: 100px; max-width: 120px; text-align: center;">
+      <div style="flex: 1; min-width: 80px; max-width: 100px; text-align: center;">
         <div class="subtitulo">Ditado</div>
         <div class="single-input">
           <input type="number" id="dictado" min="0" max="10" step="0.01">
@@ -168,6 +174,7 @@
       </div>
 
     </div>
+    <div class="nota-parcial" id="nota-linguaxe"></div>
   </div>
 
   <button id="calcular-btn" onclick="calcular()">Calcular nota final</button>
@@ -186,8 +193,7 @@
       document.getElementById("ento-individual").style.display = (modo === "individual") ? "block" : "none";
       document.getElementById("ento-consensuado").style.display = (modo === "consensuado") ? "block" : "none";
 
-      const btn = document.getElementById("modo-btn");
-      btn.innerText = (modo === "individual")
+      document.getElementById("modo-btn").innerText = (modo === "individual")
         ? "👥 Modo: profesores individuais"
         : "👤 Modo: nota consensuada";
     }
@@ -213,7 +219,9 @@
       const linguaxe = 0.10 * teoria + 0.30 * ritmo + 0.30 * ento + 0.30 * dictado;
       const final = 0.70 * instrumento + 0.30 * linguaxe;
 
-      document.getElementById("resultado").innerText = "Nota final: " + final.toFixed(2);
+      document.getElementById("nota-instrumento").innerText = instrumento.toFixed(2);
+      document.getElementById("nota-linguaxe").innerText = linguaxe.toFixed(2);
+      document.getElementById("resultado").innerText = "NOTA DA PROBA: " + final.toFixed(2);
     }
   </script>
 </body>
