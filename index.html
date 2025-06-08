@@ -62,4 +62,56 @@
     </div>
 
     <div id="inst-consensuado" style="display:none;">
-      <label>Nota consensuada: <input type="num
+      <label>Nota consensuada: <input type="number" id="instC" min="0" max="10" step="0.01"></label>
+    </div>
+  </div>
+
+  <!-- BLOQUE LINGUAXE MUSICAL -->
+  <div class="bloque" id="bloque-linguaxe">
+    <h3>Linguaxe Musical</h3>
+
+    <!-- Ritmo -->
+    <div id="ritmo-individual">
+      <label>Ritmo Profesor 1: <input type="number" id="ritmo1" min="0" max="10" step="0.01"></label>
+      <label>Ritmo Profesor 2: <input type="number" id="ritmo2" min="0" max="10" step="0.01"></label>
+      <label>Ritmo Profesor 3: <input type="number" id="ritmo3" min="0" max="10" step="0.01"></label>
+    </div>
+    <div id="ritmo-consensuado" style="display:none;">
+      <label>Ritmo consensuado: <input type="number" id="ritmoC" min="0" max="10" step="0.01"></label>
+    </div>
+
+    <!-- Entoación -->
+    <div id="ento-individual">
+      <label>Entoación Profesor 1: <input type="number" id="ento1" min="0" max="10" step="0.01"></label>
+      <label>Entoación Profesor 2: <input type="number" id="ento2" min="0" max="10" step="0.01"></label>
+      <label>Entoación Profesor 3: <input type="number" id="ento3" min="0" max="10" step="0.01"></label>
+    </div>
+    <div id="ento-consensuado" style="display:none;">
+      <label>Entoación consensuada: <input type="number" id="entoC" min="0" max="10" step="0.01"></label>
+    </div>
+
+    <!-- Teoría -->
+    <label>Teoría (única): <input type="number" id="teoria" min="0" max="10" step="0.01"></label>
+
+    <!-- Ditado -->
+    <label>Ditado (único): <input type="number" id="dictado" min="0" max="10" step="0.01"></label>
+  </div>
+
+  <script>
+    function cambiarModo() {
+      const modo = document.getElementById("modo").value;
+
+      // Mostrar/ocultar bloques según modo
+      document.getElementById("inst-individual").style.display = modo === "individual" ? "block" : "none";
+      document.getElementById("inst-consensuado").style.display = modo === "consensuado" ? "block" : "none";
+
+      document.getElementById("ritmo-individual").style.display = modo === "individual" ? "block" : "none";
+      document.getElementById("ritmo-consensuado").style.display = modo === "consensuado" ? "block" : "none";
+
+      document.getElementById("ento-individual").style.display = modo === "individual" ? "block" : "none";
+      document.getElementById("ento-consensuado").style.display = modo === "consensuado" ? "block" : "none";
+    }
+  </script>
+
+</body>
+</html>
