@@ -40,18 +40,19 @@
       display: block;
       margin: 0 auto 0.5rem auto;
     }
-    .fila {
+    .contenedor-principal {
       display: flex;
       justify-content: center;
-      gap: 0.4rem;
       flex-wrap: nowrap;
-      margin: 0.4rem 0;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+      flex-direction: row;
     }
     .columna {
-      flex: 1;
-      min-width: 0;
       text-align: center;
-      max-width: 90px;
+      max-width: 85px;
+      flex-shrink: 1;
+      flex-grow: 1;
     }
     .columna h4 {
       margin-bottom: 0.2rem;
@@ -126,7 +127,7 @@
 
   <button id="modo-btn" onclick="cambiarModo()">👤</button>
 
-  <div class="fila">
+  <div class="contenedor-principal">
     <div class="columna">
       <h4 style="text-transform: uppercase; font-size: 0.75rem;">Instrumento</h4>
       <div class="bloque-input" id="inst-individual" style="display:none;">
