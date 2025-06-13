@@ -73,12 +73,19 @@
       color: white;
       border-radius: 6px;
       margin-top: 0.3rem;
-      padding: 0.3rem;
+      padding: 0.6rem 0.3rem;
       border: 1px solid white;
+      min-height: 2.2rem;
     }
     .erro {
       background: #ff6b6b !important;
       color: white;
+    }
+    .etiqueta-linguaxe {
+      text-align: center;
+      margin-bottom: -0.8rem;
+      font-weight: bold;
+      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -86,29 +93,33 @@
 
   <h2>Calculadora Acceso GP</h2>
 
-  <button id="modo-btn" onclick="cambiarModo()">👥</button>
+  <button id="modo-btn" onclick="cambiarModo()">👤</button>
 
   <div class="bloque-total">
     <div class="columna">
-      <h4>Instrumento</h4>
-      <div class="bloque-input" id="inst-individual">
+      <h4>INSTRUMENTO</h4>
+      <div class="bloque-input" id="inst-individual" style="display:none;">
         <input type="number" id="inst1" min="0" max="10" step="0.01">
         <input type="number" id="inst2" min="0" max="10" step="0.01">
         <input type="number" id="inst3" min="0" max="10" step="0.01">
       </div>
-      <div class="bloque-input" id="inst-consensuado" style="display:none;">
+      <div class="bloque-input" id="inst-consensuado">
         <input type="number" id="instC" min="0" max="10" step="0.01" style="height: 100%;">
       </div>
     </div>
+  </div>
 
+  <div class="etiqueta-linguaxe">LINGUAXE MUSICAL</div>
+
+  <div class="bloque-total">
     <div class="columna">
       <h4>Ritmo</h4>
-      <div class="bloque-input" id="ritmo-individual">
+      <div class="bloque-input" id="ritmo-individual" style="display:none;">
         <input type="number" id="ritmo1" min="0" max="10" step="0.01">
         <input type="number" id="ritmo2" min="0" max="10" step="0.01">
         <input type="number" id="ritmo3" min="0" max="10" step="0.01">
       </div>
-      <div class="bloque-input" id="ritmo-consensuado" style="display:none;">
+      <div class="bloque-input" id="ritmo-consensuado">
         <input type="number" id="ritmoC" min="0" max="10" step="0.01" style="height: 100%;">
       </div>
       <div class="resultado" id="resultado-instrumento">INSTR</div>
@@ -116,12 +127,12 @@
 
     <div class="columna">
       <h4>Entoación</h4>
-      <div class="bloque-input" id="ento-individual">
+      <div class="bloque-input" id="ento-individual" style="display:none;">
         <input type="number" id="ento1" min="0" max="10" step="0.01">
         <input type="number" id="ento2" min="0" max="10" step="0.01">
         <input type="number" id="ento3" min="0" max="10" step="0.01">
       </div>
-      <div class="bloque-input" id="ento-consensuado" style="display:none;">
+      <div class="bloque-input" id="ento-consensuado">
         <input type="number" id="entoC" min="0" max="10" step="0.01" style="height: 100%;">
       </div>
       <div class="resultado" id="resultado-linguaxe">LM</div>
@@ -144,74 +155,10 @@
   </div>
 
   <script>
-    let modo = "individual";
+    let modo = "consensuado";
 
     function cambiarModo() {
       modo = (modo === "individual") ? "consensuado" : "individual";
 
       document.getElementById("inst-individual").style.display = (modo === "individual") ? "flex" : "none";
-      document.getElementById("inst-consensuado").style.display = (modo === "consensuado") ? "flex" : "none";
-      document.getElementById("ritmo-individual").style.display = (modo === "individual") ? "flex" : "none";
-      document.getElementById("ritmo-consensuado").style.display = (modo === "consensuado") ? "flex" : "none";
-      document.getElementById("ento-individual").style.display = (modo === "individual") ? "flex" : "none";
-      document.getElementById("ento-consensuado").style.display = (modo === "consensuado") ? "flex" : "none";
-
-      document.getElementById("modo-btn").innerText = (modo === "individual") ? "👥" : "👤";
-      calcular();
-    }
-
-    function calcular() {
-      const val = id => parseFloat(document.getElementById(id)?.value) || 0;
-      const isAnyValueEntered = ids => ids.some(id => document.getElementById(id)?.value.trim() !== "");
-
-      const teoria = val("teoria");
-      const dictado = val("dictado");
-
-      let ritmo = 0, ento = 0, instrumento = 0;
-
-      const idsRitmo = modo === "individual" ? ["ritmo1","ritmo2","ritmo3"] : ["ritmoC"];
-      const idsEnto  = modo === "individual" ? ["ento1","ento2","ento3"] : ["entoC"];
-      const idsInst  = modo === "individual" ? ["inst1","inst2","inst3"] : ["instC"];
-
-      if (modo === "individual") {
-        ritmo = (val("ritmo1") + val("ritmo2") + val("ritmo3")) / 3;
-        ento  = (val("ento1") + val("ento2") + val("ento3")) / 3;
-        instrumento = (val("inst1") + val("inst2") + val("inst3")) / 3;
-      } else {
-        ritmo = val("ritmoC");
-        ento  = val("entoC");
-        instrumento = val("instC");
-      }
-
-      const linguaxe = 0.10 * teoria + 0.30 * ritmo + 0.30 * ento + 0.30 * dictado;
-
-      const notaInstrPond = 0.70 * instrumento;
-      const notaLingPond = 0.30 * linguaxe;
-
-      const erroInstr = instrumento < 5 && isAnyValueEntered(idsInst);
-      const erroLing = linguaxe < 5 && (teoria || dictado || isAnyValueEntered(idsRitmo) || isAnyValueEntered(idsEnto));
-
-      const notaFinal = erroInstr || erroLing ? "-" : (notaInstrPond + notaLingPond).toFixed(2);
-
-      const elInstr = document.getElementById("resultado-instrumento");
-      const elLing = document.getElementById("resultado-linguaxe");
-      const elFinal = document.getElementById("resultado-final");
-
-      elInstr.innerText = "INSTR" + (isAnyValueEntered(idsInst) ? ": " + (erroInstr ? "-" : notaInstrPond.toFixed(2)) : "");
-      elLing.innerText = "LM" + ((teoria || dictado || isAnyValueEntered(idsRitmo) || isAnyValueEntered(idsEnto)) ? ": " + (erroLing ? "-" : notaLingPond.toFixed(2)) : "");
-      elFinal.innerText = "NOTA" + ((notaFinal !== "-") ? ": " + notaFinal : (erroInstr || erroLing ? ": -" : ""));
-
-      elInstr.className = "resultado" + (erroInstr ? " erro" : "");
-      elLing.className = "resultado" + (erroLing ? " erro" : "");
-      elFinal.className = "resultado" + ((notaFinal === "-") && (erroInstr || erroLing) ? " erro" : "");
-    }
-
-    window.onload = () => {
-      document.querySelectorAll("input[type='number']").forEach(el => {
-        el.addEventListener("input", calcular);
-      });
-      calcular();
-    };
-  </script>
-</body>
-</html>
+      document
