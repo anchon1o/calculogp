@@ -16,43 +16,20 @@
       text-align: center;
       margin-bottom: 0.5rem;
     }
-    .fila {
+    .formulario {
       display: flex;
       justify-content: center;
-      gap: 0.5rem;
-      flex-wrap: nowrap;
-      margin: 0.4rem 0;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
     }
-    .columna {
-      flex: 1;
-      min-width: 0;
-      text-align: center;
-      max-width: 100px;
-    }
-    .columna h4 {
-      margin-bottom: 0.2rem;
-      font-size: 0.8rem;
-    }
-    .bloque-input {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0.2rem;
-      height: 5.5rem;
-    }
-    .bloque-input input[type="number"]:not(:only-child) {
-      flex: 1;
-      height: 1.8rem;
-    }
-    input[type="number"] {
-      font-size: 1.1rem;
-      padding: 0.2rem;
-      text-align: center;
-      background: white;
-      color: #007bc4;
+    .formulario input, .formulario select {
+      font-size: 1rem;
+      padding: 0.3rem;
+      border-radius: 5px;
       border: none;
-      border-radius: 4px;
-      width: 100%;
+      color: #007bc4;
+      width: 140px;
     }
     #modo-btn {
       background: none;
@@ -62,6 +39,45 @@
       cursor: pointer;
       display: block;
       margin: 0 auto 0.5rem auto;
+    }
+    .fila {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      flex-wrap: nowrap;
+      margin: 0.4rem 0;
+    }
+    .columna {
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+      max-width: 90px;
+    }
+    .columna h4 {
+      margin-bottom: 0.2rem;
+      font-size: 0.75rem;
+    }
+    .bloque-input {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.15rem;
+      height: 4.6rem;
+      transition: all 0.3s ease;
+    }
+    .bloque-input input[type="number"]:not(:only-child) {
+      flex: 1;
+      height: 1.4rem;
+    }
+    input[type="number"] {
+      font-size: 0.95rem;
+      padding: 0.1rem;
+      text-align: center;
+      background: white;
+      color: #007bc4;
+      border: none;
+      border-radius: 4px;
+      width: 100%;
     }
     .resultado {
       font-weight: bold;
@@ -79,6 +95,9 @@
       background: #ff6b6b !important;
       color: white;
     }
+    .erro::before {
+      content: "⚠️ ";
+    }
     .etiqueta-linguaxe {
       text-align: center;
       font-weight: bold;
@@ -90,25 +109,35 @@
 </head>
 <body>
   <h2>Calculadora Acceso GP</h2>
+
+  <div class="formulario">
+    <input type="text" id="alumno" placeholder="Nome do alumno">
+    <select id="especialidade">
+      <option value="">Especialidade</option>
+      <option value="Piano">Piano</option>
+      <option value="Violín">Violín</option>
+      <option value="Canto">Canto</option>
+      <option value="Guitarra">Guitarra</option>
+      <option value="Flauta">Flauta</option>
+      <option value="Oboe">Oboe</option>
+      <option value="Percusión">Percusión</option>
+    </select>
+  </div>
+
   <button id="modo-btn" onclick="cambiarModo()">👤</button>
 
   <div class="fila">
     <div class="columna">
-      <h4 style="text-transform: uppercase; font-size: 0.8rem;">Instrumento</h4>
+      <h4 style="text-transform: uppercase; font-size: 0.75rem;">Instrumento</h4>
       <div class="bloque-input" id="inst-individual" style="display:none;">
         <input type="number" id="inst1" min="0" max="10" step="0.01">
         <input type="number" id="inst2" min="0" max="10" step="0.01">
         <input type="number" id="inst3" min="0" max="10" step="0.01">
       </div>
       <div class="bloque-input" id="inst-consensuado">
-        <input type="number" id="instC" min="0" max="10" step="0.01" style="height: 100%;">
+        <input type="number" id="instC" min="0" max="10" step="0.01">
       </div>
     </div>
-  </div>
-
-  <div class="etiqueta-linguaxe">LINGUAXE MUSICAL</div>
-
-  <div class="fila">
     <div class="columna">
       <h4>Ritmo</h4>
       <div class="bloque-input" id="ritmo-individual" style="display:none;">
@@ -117,7 +146,7 @@
         <input type="number" id="ritmo3" min="0" max="10" step="0.01">
       </div>
       <div class="bloque-input" id="ritmo-consensuado">
-        <input type="number" id="ritmoC" min="0" max="10" step="0.01" style="height: 100%;">
+        <input type="number" id="ritmoC" min="0" max="10" step="0.01">
       </div>
       <div class="resultado" id="resultado-instrumento">INSTR</div>
     </div>
@@ -129,21 +158,21 @@
         <input type="number" id="ento3" min="0" max="10" step="0.01">
       </div>
       <div class="bloque-input" id="ento-consensuado">
-        <input type="number" id="entoC" min="0" max="10" step="0.01" style="height: 100%;">
+        <input type="number" id="entoC" min="0" max="10" step="0.01">
       </div>
       <div class="resultado" id="resultado-linguaxe">LM</div>
     </div>
     <div class="columna">
       <h4>Teoría</h4>
       <div class="bloque-input">
-        <input type="number" id="teoria" min="0" max="10" step="0.01" style="height: 100%;">
+        <input type="number" id="teoria" min="0" max="10" step="0.01">
       </div>
       <div class="resultado" id="resultado-final">NOTA</div>
     </div>
     <div class="columna">
       <h4>Ditado</h4>
       <div class="bloque-input">
-        <input type="number" id="dictado" min="0" max="10" step="0.01" style="height: 100%;">
+        <input type="number" id="dictado" min="0" max="10" step="0.01">
       </div>
     </div>
   </div>
