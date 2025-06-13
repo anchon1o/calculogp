@@ -52,23 +52,20 @@
       border-radius: 4px;
       width: 100%;
     }
-    button {
-      width: 100%;
-      padding: 0.7rem;
-      font-size: 1.1rem;
-      margin-top: 0.8rem;
+    #modo-btn {
+      background: none;
       border: none;
-      border-radius: 6px;
+      font-size: 1.5rem;
+      color: white;
       cursor: pointer;
-      background-color: white;
-      color: #007bc4;
-      font-weight: bold;
+      display: block;
+      margin: 0 auto 1rem auto;
     }
     .resultado {
       font-weight: bold;
       font-size: 1.2rem;
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
@@ -76,73 +73,11 @@
 
   <h2>Calculadora Acceso GP</h2>
 
-  <button id="modo-btn" onclick="cambiarModo()">👥 Modo: profesores individuais</button>
+  <button id="modo-btn" onclick="cambiarModo()">👥</button>
 
   <div class="bloque-total">
     <div class="columna">
       <h4>Instrumento</h4>
       <div class="bloque-input" id="inst-individual">
         <input type="number" id="inst1" min="0" max="10" step="0.01">
-        <input type="number" id="inst2" min="0" max="10" step="0.01">
-        <input type="number" id="inst3" min="0" max="10" step="0.01">
-      </div>
-      <div class="bloque-input" id="inst-consensuado" style="display:none;">
-        <input type="number" id="instC" min="0" max="10" step="0.01" style="height: 100%;">
-      </div>
-    </div>
-
-    <div class="columna">
-      <h4>Ritmo</h4>
-      <div class="bloque-input" id="ritmo-individual">
-        <input type="number" id="ritmo1" min="0" max="10" step="0.01">
-        <input type="number" id="ritmo2" min="0" max="10" step="0.01">
-        <input type="number" id="ritmo3" min="0" max="10" step="0.01">
-      </div>
-      <div class="bloque-input" id="ritmo-consensuado" style="display:none;">
-        <input type="number" id="ritmoC" min="0" max="10" step="0.01" style="height: 100%;">
-      </div>
-    </div>
-
-    <div class="columna">
-      <h4>Entoación</h4>
-      <div class="bloque-input" id="ento-individual">
-        <input type="number" id="ento1" min="0" max="10" step="0.01">
-        <input type="number" id="ento2" min="0" max="10" step="0.01">
-        <input type="number" id="ento3" min="0" max="10" step="0.01">
-      </div>
-      <div class="bloque-input" id="ento-consensuado" style="display:none;">
-        <input type="number" id="entoC" min="0" max="10" step="0.01" style="height: 100%;">
-      </div>
-    </div>
-
-    <div class="columna">
-      <h4>Teoría</h4>
-      <div class="bloque-input">
-        <input type="number" id="teoria" min="0" max="10" step="0.01" style="height: 100%;">
-      </div>
-    </div>
-
-    <div class="columna">
-      <h4>Ditado</h4>
-      <div class="bloque-input">
-        <input type="number" id="dictado" min="0" max="10" step="0.01" style="height: 100%;">
-      </div>
-    </div>
-  </div>
-
-  <button id="calcular-btn" onclick="calcular()">Calcular nota final</button>
-  <div class="resultado" id="resultado-instrumento"></div>
-  <div class="resultado" id="resultado-linguaxe"></div>
-  <div class="resultado" id="resultado-final"></div>
-
-  <script>
-    let modo = "individual";
-
-    function cambiarModo() {
-      modo = (modo === "individual") ? "consensuado" : "individual";
-
-      document.getElementById("inst-individual").style.display = (modo === "individual") ? "flex" : "none";
-      document.getElementById("inst-consensuado").style.display = (modo === "consensuado") ? "flex" : "none";
-      document.getElementById("ritmo-individual").style.display = (modo === "individual") ? "flex" : "none";
-      document.getElementById("ritmo-consensuado").style.display = (modo === "consensuado") ? "flex" : "none";
-      document.getElementById("ento-individual").style.display = (
+        <input type="number" id="inst2" min="
