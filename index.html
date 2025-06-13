@@ -66,7 +66,7 @@
     }
     .resultado {
       font-weight: bold;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       text-align: center;
       margin-top: 1rem;
     }
@@ -131,7 +131,9 @@
   </div>
 
   <button id="calcular-btn" onclick="calcular()">Calcular nota final</button>
-  <div class="resultado" id="resultado"></div>
+  <div class="resultado" id="resultado-instrumento"></div>
+  <div class="resultado" id="resultado-linguaxe"></div>
+  <div class="resultado" id="resultado-final"></div>
 
   <script>
     let modo = "individual";
@@ -143,37 +145,4 @@
       document.getElementById("inst-consensuado").style.display = (modo === "consensuado") ? "flex" : "none";
       document.getElementById("ritmo-individual").style.display = (modo === "individual") ? "flex" : "none";
       document.getElementById("ritmo-consensuado").style.display = (modo === "consensuado") ? "flex" : "none";
-      document.getElementById("ento-individual").style.display = (modo === "individual") ? "flex" : "none";
-      document.getElementById("ento-consensuado").style.display = (modo === "consensuado") ? "flex" : "none";
-
-      document.getElementById("modo-btn").innerText = (modo === "individual")
-        ? "👥 Modo: profesores individuais"
-        : "👤 Modo: nota consensuada";
-    }
-
-    function calcular() {
-      const val = id => parseFloat(document.getElementById(id)?.value) || 0;
-
-      const teoria = val("teoria");
-      const dictado = val("dictado");
-
-      let ritmo = 0, ento = 0, instrumento = 0;
-
-      if (modo === "individual") {
-        ritmo = (val("ritmo1") + val("ritmo2") + val("ritmo3")) / 3;
-        ento  = (val("ento1") + val("ento2") + val("ento3")) / 3;
-        instrumento = (val("inst1") + val("inst2") + val("inst3")) / 3;
-      } else {
-        ritmo = val("ritmoC");
-        ento  = val("entoC");
-        instrumento = val("instC");
-      }
-
-      const linguaxe = 0.10 * teoria + 0.30 * ritmo + 0.30 * ento + 0.30 * dictado;
-      const final = 0.70 * instrumento + 0.30 * linguaxe;
-
-      document.getElementById("resultado").innerText = "NOTA DA PROBA: " + final.toFixed(2);
-    }
-  </script>
-</body>
-</html>
+      document.getElementById("ento-individual").style.display = (
