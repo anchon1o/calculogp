@@ -77,7 +77,7 @@
       border: 1px solid white;
     }
     .erro {
-      background: #ff6b6b;
+      background: #ff6b6b !important;
       color: white;
     }
   </style>
@@ -111,7 +111,7 @@
       <div class="bloque-input" id="ritmo-consensuado" style="display:none;">
         <input type="number" id="ritmoC" min="0" max="10" step="0.01" style="height: 100%;">
       </div>
-      <div class="resultado" id="resultado-instrumento"></div>
+      <div class="resultado" id="resultado-instrumento">INSTR</div>
     </div>
 
     <div class="columna">
@@ -124,7 +124,7 @@
       <div class="bloque-input" id="ento-consensuado" style="display:none;">
         <input type="number" id="entoC" min="0" max="10" step="0.01" style="height: 100%;">
       </div>
-      <div class="resultado" id="resultado-linguaxe"></div>
+      <div class="resultado" id="resultado-linguaxe">LM</div>
     </div>
 
     <div class="columna">
@@ -132,7 +132,7 @@
       <div class="bloque-input">
         <input type="number" id="teoria" min="0" max="10" step="0.01" style="height: 100%;">
       </div>
-      <div class="resultado" id="resultado-final"></div>
+      <div class="resultado" id="resultado-final">NOTA</div>
     </div>
 
     <div class="columna">
@@ -162,11 +162,16 @@
 
     function calcular() {
       const val = id => parseFloat(document.getElementById(id)?.value) || 0;
+      const isAnyValueEntered = ids => ids.some(id => document.getElementById(id)?.value.trim() !== "");
 
       const teoria = val("teoria");
       const dictado = val("dictado");
 
       let ritmo = 0, ento = 0, instrumento = 0;
+
+      const idsRitmo = modo === "individual" ? ["ritmo1","ritmo2","ritmo3"] : ["ritmoC"];
+      const idsEnto  = modo === "individual" ? ["ento1","ento2","ento3"] : ["entoC"];
+      const idsInst  = modo === "individual" ? ["inst1","inst2","inst3"] : ["instC"];
 
       if (modo === "individual") {
         ritmo = (val("ritmo1") + val("ritmo2") + val("ritmo3")) / 3;
@@ -183,8 +188,8 @@
       const notaInstrPond = 0.70 * instrumento;
       const notaLingPond = 0.30 * linguaxe;
 
-      const erroInstr = instrumento < 5;
-      const erroLing = linguaxe < 5;
+      const erroInstr = instrumento < 5 && isAnyValueEntered(idsInst);
+      const erroLing = linguaxe < 5 && (teoria || dictado || isAnyValueEntered(idsRitmo) || isAnyValueEntered(idsEnto));
 
       const notaFinal = erroInstr || erroLing ? "-" : (notaInstrPond + notaLingPond).toFixed(2);
 
@@ -192,13 +197,13 @@
       const elLing = document.getElementById("resultado-linguaxe");
       const elFinal = document.getElementById("resultado-final");
 
-      elInstr.innerText = "Nota instrumento: " + (erroInstr ? "-" : notaInstrPond.toFixed(2));
-      elLing.innerText = "Nota LM: " + (erroLing ? "-" : notaLingPond.toFixed(2));
-      elFinal.innerText = "Nota proba: " + notaFinal;
+      elInstr.innerText = "INSTR" + (isAnyValueEntered(idsInst) ? ": " + (erroInstr ? "-" : notaInstrPond.toFixed(2)) : "");
+      elLing.innerText = "LM" + ((teoria || dictado || isAnyValueEntered(idsRitmo) || isAnyValueEntered(idsEnto)) ? ": " + (erroLing ? "-" : notaLingPond.toFixed(2)) : "");
+      elFinal.innerText = "NOTA" + ((notaFinal !== "-") ? ": " + notaFinal : (erroInstr || erroLing ? ": -" : ""));
 
       elInstr.className = "resultado" + (erroInstr ? " erro" : "");
       elLing.className = "resultado" + (erroLing ? " erro" : "");
-      elFinal.className = "resultado" + ((notaFinal === "-") ? " erro" : "");
+      elFinal.className = "resultado" + ((notaFinal === "-") && (erroInstr || erroLing) ? " erro" : "");
     }
 
     window.onload = () => {
