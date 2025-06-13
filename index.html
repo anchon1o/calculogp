@@ -42,6 +42,10 @@
       gap: 0.15rem;
       height: 5.5rem;
     }
+    .bloque-input input[type="number"]:not(:only-child) {
+      flex: 1;
+      height: 1.8rem;
+    }
     input[type="number"] {
       font-size: 0.9rem;
       padding: 0.1rem;
@@ -63,9 +67,13 @@
     }
     .resultado {
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1rem;
       text-align: center;
-      margin-top: 0.5rem;
+      background: white;
+      color: #007bc4;
+      border-radius: 6px;
+      margin-top: 0.3rem;
+      padding: 0.3rem;
     }
   </style>
 </head>
@@ -86,6 +94,7 @@
       <div class="bloque-input" id="inst-consensuado" style="display:none;">
         <input type="number" id="instC" min="0" max="10" step="0.01" style="height: 100%;">
       </div>
+      <div class="resultado" id="resultado-instrumento"></div>
     </div>
 
     <div class="columna">
@@ -110,6 +119,7 @@
       <div class="bloque-input" id="ento-consensuado" style="display:none;">
         <input type="number" id="entoC" min="0" max="10" step="0.01" style="height: 100%;">
       </div>
+      <div class="resultado" id="resultado-linguaxe"></div>
     </div>
 
     <div class="columna">
@@ -117,6 +127,7 @@
       <div class="bloque-input">
         <input type="number" id="teoria" min="0" max="10" step="0.01" style="height: 100%;">
       </div>
+      <div class="resultado" id="resultado-final"></div>
     </div>
 
     <div class="columna">
@@ -126,10 +137,6 @@
       </div>
     </div>
   </div>
-
-  <div class="resultado" id="resultado-instrumento"></div>
-  <div class="resultado" id="resultado-linguaxe"></div>
-  <div class="resultado" id="resultado-final"></div>
 
   <script>
     let modo = "individual";
@@ -169,12 +176,11 @@
       const linguaxe = 0.10 * teoria + 0.30 * ritmo + 0.30 * ento + 0.30 * dictado;
       const final = 0.70 * instrumento + 0.30 * linguaxe;
 
-      document.getElementById("resultado-instrumento").innerText = "Nota de instrumento (70%): " + (instrumento * 0.70).toFixed(2);
-      document.getElementById("resultado-linguaxe").innerText = "Nota de linguaxe musical (30%): " + (linguaxe * 0.30).toFixed(2);
-      document.getElementById("resultado-final").innerText = "NOTA DA PROBA: " + final.toFixed(2);
+      document.getElementById("resultado-instrumento").innerText = "Nota instrumento: " + (instrumento * 0.70).toFixed(2);
+      document.getElementById("resultado-linguaxe").innerText = "Nota LM: " + (linguaxe * 0.30).toFixed(2);
+      document.getElementById("resultado-final").innerText = "Nota proba: " + final.toFixed(2);
     }
 
-    // Engadir listeners para recalcular automaticamente
     window.onload = () => {
       document.querySelectorAll("input[type='number']").forEach(el => {
         el.addEventListener("input", calcular);
